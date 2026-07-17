@@ -1,0 +1,11 @@
+{
+  "version": "0.0.1",
+  "configurations": [
+    {
+      "name": "aeoniq-web",
+      "runtimeExecutable": "npm",
+      "runtimeArgs": ["--prefix", "/Users/ovi/Production/Projects/aeoniq-web", "run", "dev"],
+      "port": 3000
+    }
+  ]
+}

@@ -1,26 +1,161 @@
 @import "tailwindcss";
 
-:root {
-  --background: #ffffff;
-  --foreground: #171717;
+/* ============================================================
+   AEONIQ Design System
+   70% Premium (Apple + Stripe) · 20% Gen Z (BoomPanda) · 10% Play (Duolingo)
+   ============================================================ */
+
+@theme {
+  /* Brand palette */
+  --color-purple: #6e2bff;
+  --color-purple-50: #f3edff;
+  --color-purple-100: #e6dbff;
+  --color-purple-200: #cbb4ff;
+  --color-purple-300: #a855f7;
+  --color-purple-400: #8b3dff;
+  --color-purple-500: #6e2bff;
+  --color-purple-600: #5a1fd6;
+  --color-purple-700: #4718a8;
+
+  --color-violet: #a855f7;
+  --color-orange: #ff7a00;
+  --color-pink: #ff4fd8;
+
+  --color-ink: #0b0b12;
+  --color-ink-soft: #17172a;
+  --color-cream: #f8f7ff;
+
+  /* Semantic */
+  --color-background: #f8f7ff;
+  --color-foreground: #0b0b12;
+  --color-muted: #56526b;
+  --color-line: #e7e3f5;
+
+  /* Fonts (wired in layout via next/font variables) */
+  --font-heading: var(--font-space-grotesk), "Space Grotesk", sans-serif;
+  --font-sans: var(--font-inter), "Inter", system-ui, sans-serif;
+
+  /* Motion */
+  --ease-out-expo: cubic-bezier(0.16, 1, 0.3, 1);
+
+  /* Radii */
+  --radius-xl: 1.25rem;
+  --radius-2xl: 1.75rem;
+  --radius-3xl: 2.25rem;
 }
 
-@theme inline {
-  --color-background: var(--background);
-  --color-foreground: var(--foreground);
-  --font-sans: var(--font-geist-sans);
-  --font-mono: var(--font-geist-mono);
-}
-
-@media (prefers-color-scheme: dark) {
+@layer base {
   :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
+    --nav-h: 76px;
+  }
+
+  * {
+    border-color: var(--color-line);
+  }
+
+  html {
+    scroll-behavior: smooth;
+    -webkit-font-smoothing: antialiased;
+    text-rendering: optimizeLegibility;
+  }
+
+  body {
+    background: var(--color-background);
+    color: var(--color-foreground);
+    font-family: var(--font-sans);
+    overflow-x: hidden;
+  }
+
+  h1, h2, h3, h4, h5 {
+    font-family: var(--font-heading);
+    letter-spacing: -0.02em;
+    line-height: 1.04;
+  }
+
+  ::selection {
+    background: color-mix(in oklab, var(--color-purple) 25%, transparent);
+    color: var(--color-ink);
+  }
+
+  :focus-visible {
+    outline: 2px solid var(--color-purple);
+    outline-offset: 3px;
+    border-radius: 6px;
   }
 }
 
-body {
-  background: var(--background);
-  color: var(--foreground);
-  font-family: Arial, Helvetica, sans-serif;
+@layer components {
+  .container-x {
+    width: 100%;
+    max-width: 80rem; /* 1280px */
+    margin-inline: auto;
+    padding-inline: 1.25rem;
+  }
+  @media (min-width: 768px) {
+    .container-x { padding-inline: 2rem; }
+  }
+
+  .text-gradient {
+    background: linear-gradient(100deg, var(--color-purple) 0%, var(--color-violet) 45%, var(--color-pink) 100%);
+    -webkit-background-clip: text;
+    background-clip: text;
+    color: transparent;
+  }
+
+  .bg-brand-gradient {
+    background: linear-gradient(115deg, #6e2bff 0%, #a855f7 55%, #ff4fd8 100%);
+  }
+
+  .bg-warm-gradient {
+    background: linear-gradient(115deg, #6e2bff 0%, #a855f7 40%, #ff7a00 100%);
+  }
+
+  /* Glow CTA — brief: "CTA Buttons — Glow effect" */
+  .btn-glow {
+    box-shadow: 0 10px 30px -8px color-mix(in oklab, var(--color-purple) 60%, transparent);
+  }
+  .btn-glow:hover {
+    box-shadow: 0 16px 42px -8px color-mix(in oklab, var(--color-purple) 75%, transparent);
+  }
+
+  .card-surface {
+    background: #ffffff;
+    border: 1px solid var(--color-line);
+    box-shadow: 0 1px 2px rgba(11, 11, 18, 0.04);
+  }
+}
+
+@layer utilities {
+  .grain {
+    background-image: radial-gradient(circle at 1px 1px, rgba(110, 43, 255, 0.08) 1px, transparent 0);
+    background-size: 22px 22px;
+  }
+  .glass {
+    background: color-mix(in oklab, #ffffff 72%, transparent);
+    backdrop-filter: blur(14px) saturate(140%);
+  }
+}
+
+/* Floating animation — brief: "Language Icons — Float gently" */
+@keyframes float-y {
+  0%, 100% { transform: translateY(0); }
+  50% { transform: translateY(-12px); }
+}
+.animate-float { animation: float-y 6s var(--ease-out-expo) infinite; }
+
+@keyframes pulse-ring {
+  0% { box-shadow: 0 0 0 0 color-mix(in oklab, var(--color-purple) 40%, transparent); }
+  70% { box-shadow: 0 0 0 14px transparent; }
+  100% { box-shadow: 0 0 0 0 transparent; }
+}
+.animate-pulse-ring { animation: pulse-ring 2.4s ease-out infinite; }
+
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after {
+    animation-duration: 0.001ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.001ms !important;
+    scroll-behavior: auto !important;
+  }
+  .animate-float { animation: none; }
 }
