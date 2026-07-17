@@ -1,36 +1,80 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# AEONIQ Learning — Website
 
-## Getting Started
+> Smarter Learning. Limitless Future.
 
-First, run the development server:
+A goal-focused learning platform marketing site — premium, animated and
+mobile-first. Built to the AEONIQ brand brief: **70% premium (Apple + Stripe),
+20% Gen Z energy (BoomPanda), 10% gamification (Duolingo).**
+
+## Stack
+
+- **Next.js 16** (App Router, TypeScript)
+- **Tailwind CSS v4** (CSS-first `@theme` tokens in `src/app/globals.css`)
+- **motion** (Framer Motion) for scroll reveals, counters and micro-interactions
+- **lucide-react** for icons (no emoji icons)
+
+## Getting started
 
 ```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
+npm install
+npm run dev      # http://localhost:3000
+npm run build    # production build
+npm start        # serve production build
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+## Brand system
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+| Token | Value |
+|-------|-------|
+| Primary Purple | `#6E2BFF` |
+| Secondary Purple | `#A855F7` |
+| Orange | `#FF7A00` |
+| Pink | `#FF4FD8` |
+| Background | `#F8F7FF` |
+| Dark | `#0B0B12` |
+| Headings | Space Grotesk |
+| Body | Inter |
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+All tokens live in `@theme` inside `src/app/globals.css` and are consumed as
+Tailwind utilities (`bg-purple`, `text-gradient`, `bg-brand-gradient`, …).
 
-## Learn More
+## Structure
 
-To learn more about Next.js, take a look at the following resources:
+```
+src/
+  app/
+    layout.tsx                # fonts, metadata, Navbar + Footer shell
+    page.tsx                  # Home (11 composed sections)
+    programs/
+      english-lab/            # English Lab
+      languages/              # French · German · Arabic
+      test-prep/              # IELTS · PTE · Duolingo · CELPIP · TOEFL
+      skill-studio/           # Career skills
+    learning-concierge/       # Premium dark vertical
+    academic-pathways/        # OSSD (separate vertical)
+    bundles/                  # Goal bundles
+    resources/                # Resources & insights
+    about/                    # About
+    book-assessment/          # Conversion hub + form
+  components/
+    brand/Logo.tsx            # Inline SVG "AQ" monogram + wordmark
+    layout/                   # Navbar (glass pill), Footer
+    ui/                       # Button, Reveal, Counter, SectionHeading, PageHero, CtaBand
+    home/                     # One component per homepage section
+    forms/AssessmentForm.tsx  # Accessible booking form (front-end demo)
+  lib/
+    content.ts                # Single source of truth for nav + copy
+    utils.ts                  # cn() class merge
+```
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+## Content
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+All marketing copy, nav links, programs, bundles and results live in
+`src/lib/content.ts` — edit there, not in components.
 
-## Deploy on Vercel
+## Notes
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
-
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+- `AssessmentForm` simulates submission on the front end. Wire `handleSubmit`
+  to your CRM / API endpoint when ready.
+- Every animation respects `prefers-reduced-motion`.
+- Fully responsive at 375 / 768 / 1024 / 1440 px.
